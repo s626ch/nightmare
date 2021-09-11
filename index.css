@@ -1,0 +1,170 @@
+/* import font */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+:root {
+    --font: 'Creepster', cursive;
+}
+
+/* anim */
+@keyframes textflicker {
+    0% {
+        text-shadow: 0.8121827411167513vh 0 0 #ea36af, -0.8121827411167513vh 0 0 #75fa69;
+        /* 1px 0 0, -2px 0 0 */
+    }
+    25% {
+        text-shadow: 0 -0.8121827411167513vh 0 #ea36af, 0 0.8121827411167513vh 0 #75fa69;
+    }
+    50% {
+        text-shadow: -0.8121827411167513vh 0 0 #ea36af, 0.8121827411167513vh 0 0 #75fa69;
+    }
+    75% {
+        text-shadow: 0 0.8121827411167513vh 0 #ea36af, 0 -0.8121827411167513vh 0 #75fa69;
+        /* 2px 0.5px 2px, -1px 0.5px 2px */
+    }
+    100% {
+        text-shadow: 0.8121827411167513vh 0 0 #ea36af, -0.8121827411167513vh 0 0 #75fa69;
+    }
+}
+@keyframes huerotateanim {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* skew */
+@keyframes pulse {
+	0%  { opacity: 1;   transform: translate(2.5%,2.5%) skew(0,0) scale(0.8);}
+	20% { opacity: .25; transform: translate(-2.4%,-1.5%) skew(10deg,0) scale(0.8);}
+	35% { opacity: .75; transform: translate(2.6%,2.6%) skew(-5deg,-5deg) scale(0.8);}
+	60% { opacity: .25; transform: translate(-1.5%,-2.2%) skew(15deg,10deg) scale(0.8);}
+	75% { opacity: .5;  transform: translate(2.75%,2.6%) skew(-5deg,5deg) scale(0.8);}
+}
+
+/* scanline */
+body::before {
+    content: "";
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: calc(100% + 32px);
+    height: calc(100% + 32px);
+    background-image: url(img/scanlineseg.png);
+    background-position: 0 0;
+    background-repeat: repeat;
+    z-index: 10000000;
+    animation: ScanlineAnimationLeft 2s linear infinite;
+    pointer-events: none;
+    opacity: 0.25;
+}
+body::after {
+    content: "";
+    display: block;
+    position: fixed;
+    left: -32px;
+    top: 0;
+    width: calc(100% + 32px);
+    height: calc(100% + 32px);
+    background-image: url(img/scanlineseg.png);
+    background-position: 0 0;
+    background-repeat: repeat;
+    z-index: 10000000;
+    animation: ScanlineAnimationRight 0.4s linear infinite;
+    pointer-events: none;
+    opacity: 0.25;
+}
+@keyframes ScanlineAnimationLeft {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  100% {
+    transform: translateX(-32px) translateY(-32px);
+  }
+}
+ 
+@keyframes ScanlineAnimationRight {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  100% {
+    transform: translateX(32px) translateY(-32px);
+  }
+}
+
+/* hide scrollbar */
+::-webkit-scrollbar, ::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner, ::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece {
+    width: 0;
+}
+
+html, body, .section {
+    padding:0;
+    margin:0;
+    width: 100%;
+    height: 100%;
+}
+body {
+    background-color: black;
+}
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.blocksep {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 500vh;
+    background-image: url('img/eye.gif');
+    background-position: center;
+    background-repeat: no-repeat
+}
+.darkener {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.section .textBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    width: 66.19289340101523vh;
+    animation: textflicker infinite 1s linear;
+    z-index: 25;
+}
+.section .textBox h1 {
+    position: absolute;
+    margin: auto;
+    color: white;
+    line-height: 0;
+    font-family: var(--font);
+    user-select: none;
+    /*mix-blend-mode: difference;*/
+    mix-blend-mode: hard-light;
+    /*filter: contrast(9999999999);*/
+    filter: contrast(2.5);
+}
+/* h1 layers */
+.textBox h1.one   { font-size: 20vh; z-index: 50; opacity: 1;     }
+.textBox h1.two   { font-size: 18vh; z-index: 48; opacity: 0.875; }
+.textBox h1.three { font-size: 16vh; z-index: 46; opacity: 0.75;  }
+.textBox h1.four  { font-size: 14vh; z-index: 44; opacity: 0.625; }
+.textBox h1.five  { font-size: 12vh; z-index: 42; opacity: 0.5;   }
+.textBox h1.six   { font-size: 10vh; z-index: 40; opacity: 0.375; }
+.textBox h1.seven { font-size:  8vh; z-index: 38; opacity: 0.25;  }
+.textBox h1.eight { font-size:  6vh; z-index: 36; opacity: 0.125; }
+.textBox h1 span {
+    animation: huerotateanim infinite 5s linear !important;
+}
